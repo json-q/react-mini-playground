@@ -18,6 +18,8 @@
     "preview": "rspack preview"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "@radix-ui/react-slot": "^1.2.0",
     "allotment": "^1.20.3",
     "lucide-react": "^0.488.0",
     "react": "^19.1.0",
