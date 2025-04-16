@@ -1,4 +1,4 @@
-import ReactPlayground from './components/Playground';
+import ReactPlayground from './Playground';
 
 function App() {
   return (
