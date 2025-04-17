@@ -18,6 +18,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.0
         version: 1.2.0(@types/react@19.1.2)(react@19.1.0)
+      '@typescript/ata':
+        specifier: ^0.9.7
+        version: 0.9.7(typescript@5.8.3)
       allotment:
         specifier: ^1.20.3
         version: 1.20.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -512,6 +515,11 @@ packages:
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
+
+  '@typescript/ata@0.9.7':
+    resolution: {integrity: sha512-CZx57/XGBKhYZ3ifchbERgUl9J6C7W3XC96ibM7axr7C32mG5dXTyrVAS3ZY88Jxlkvx4AZyZtDJyUuseHQkcQ==}
+    peerDependencies:
+      typescript: '>=4.4.4'
 
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -2053,6 +2061,10 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 22.14.1
+
+  '@typescript/ata@0.9.7(typescript@5.8.3)':
+    dependencies:
+      typescript: 5.8.3
 
   accepts@1.3.8:
     dependencies:
