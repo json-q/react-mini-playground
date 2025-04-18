@@ -17,7 +17,7 @@ export default function ReactPlayground() {
         <PlaygroundProvider>
           <Allotment defaultSizes={[100, 100]}>
             <Allotment.Pane minSize={250}>
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<div>Left Code Load</div>}>
                 <CodeEditor />
               </Suspense>
             </Allotment.Pane>

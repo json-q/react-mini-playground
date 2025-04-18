@@ -1,5 +1,8 @@
+import { lazy, Suspense } from 'react';
 import FileNameList from '@/components/FileNameList';
-import EditorContent, { type EditorContentFileInfo } from '@/components/EditorContent';
+import type { EditorContentFileInfo } from '@/components/EditorContent';
+
+const EditorContent = lazy(() => import('@/components/EditorContent'));
 
 export default function CodeEditor() {
   const file: EditorContentFileInfo = {
@@ -23,7 +26,9 @@ export default function App() {
   return (
     <div className="flex h-full flex-col">
       <FileNameList />
-      <EditorContent file={file} />
+      <Suspense fallback={<div>EditorContent Load</div>}>
+        <EditorContent file={file} />
+      </Suspense>
     </div>
   );
 }
