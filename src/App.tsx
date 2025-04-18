@@ -1,11 +1,7 @@
 import ReactPlayground from './Playground';
 
 function App() {
-  return (
-    <>
-      <ReactPlayground />
-    </>
-  );
+  return <ReactPlayground />;
 }
 
 export default App;

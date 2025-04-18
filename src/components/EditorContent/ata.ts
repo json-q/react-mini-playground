@@ -3,12 +3,12 @@ import ts from 'typescript';
 
 export function createATA(onDownloadFile: (code: string, path: string) => void) {
   const ata = setupTypeAcquisition({
-    projectName: 'my-ata',
+    projectName: 'react-playground',
     typescript: ts,
     logger: console,
     delegate: {
       receivedFile: (code, path) => {
-        console.log('自动下载的包', path);
+        console.log('download.....', path);
         onDownloadFile(code, path);
       },
     },
