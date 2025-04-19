@@ -90,6 +90,7 @@ export default defineConfig({
       }),
     ],
   },
+  // use cdn
   externals: {
     typescript: 'ts',
   },

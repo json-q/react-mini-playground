@@ -1,5 +1,12 @@
-import { Editor, type EditorProps, type OnMount } from '@monaco-editor/react';
+import { Editor, type EditorProps, type OnMount, loader } from '@monaco-editor/react';
 import { createATA } from './ata';
+
+loader.config({
+  paths: {
+    // node_modules\@monaco-editor\loader\lib\es\config\index.js
+    vs: 'https://fastly.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs',
+  },
+});
 
 export interface EditorContentFileInfo {
   name: string;
