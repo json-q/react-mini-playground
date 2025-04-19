@@ -77,6 +77,9 @@ export default defineConfig({
     new rspack.HtmlRspackPlugin({
       template: './index.html',
     }),
+    new rspack.CopyRspackPlugin({
+      patterns: [{ from: './public', to: '.' }],
+    }),
     isDev ? new RefreshPlugin() : null,
   ].filter(Boolean),
   optimization: {
@@ -86,6 +89,9 @@ export default defineConfig({
         minimizerOptions: { targets },
       }),
     ],
+  },
+  externals: {
+    typescript: 'ts',
   },
   experiments: {
     css: true,
