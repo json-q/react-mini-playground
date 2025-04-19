@@ -1,5 +1,15 @@
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+import { lazy, Suspense } from 'react';
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<App />);
+const App = lazy(() => import('./App.tsx'));
+
+const laztPlacholder = (
+  <div className="flex h-screen items-center justify-center">App Loading...</div>
+);
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <Suspense fallback={laztPlacholder}>
+    <App />
+  </Suspense>,
+);

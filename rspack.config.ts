@@ -8,6 +8,12 @@ const isDev = process.env.NODE_ENV === 'development';
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14'];
 
+const splitChunkGroupConfig = {
+  filename: 'js/[name].js',
+  priority: 100,
+  enforce: true,
+};
+
 export default defineConfig({
   context: __dirname,
   entry: {
@@ -16,6 +22,9 @@ export default defineConfig({
   devtool: isDev ? 'source-map' : false,
   output: {
     clean: true,
+    filename: 'js/[name].[contenthash:8].js',
+    cssFilename: 'css/[name].[contenthash:8].css',
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
   resolve: {
     extensions: ['...', '.ts', '.tsx', '.jsx'],
@@ -89,10 +98,26 @@ export default defineConfig({
         minimizerOptions: { targets },
       }),
     ],
-  },
-  // use cdn
-  externals: {
-    typescript: 'ts',
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        react: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'lib-react',
+          ...splitChunkGroupConfig,
+        },
+        babelStandalone: {
+          test: /[\\/]node_modules[\\/]@babel[\\/]standalone[\\/]/,
+          name: 'lib-babel',
+          ...splitChunkGroupConfig,
+        },
+        typescript: {
+          test: /[\\/]node_modules[\\/]typescript[\\/]/,
+          name: 'lib-ts',
+          ...splitChunkGroupConfig,
+        },
+      },
+    },
   },
   experiments: {
     css: true,
