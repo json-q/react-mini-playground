@@ -36,6 +36,8 @@ export default function EditorContent(props: EditorContentProps) {
 
   return (
     <Editor
+      height="100%"
+      className="flex-1"
       path={file.name}
       language={file.language}
       value={file.value}

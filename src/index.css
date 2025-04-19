@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin 'tailwind-scrollbar' {
+  nocompatible: true;
+  preferredstrategy: "pseudoelements";
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -37,7 +41,29 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --scrollbar-thumb: blue;
+  --scrollbar-track: transparent;
 }
+
+/* .file-selector::-webkit-scrollbar {
+  height: 1px;
+}
+
+.file-selector::-webkit-scrollbar-track {
+  background-color: 1px;
+}
+
+.file-selector::-webkit-scrollbar-thumb {
+  background-color: blue;
+}
+
+@-moz-document url-prefix('') {
+  .file-selector {
+    scrollbar-width: thin;
+    scrollbar-color: blue 1px;
+  }
+} */
 
 .dark {
   --background: oklch(0.145 0 0);
