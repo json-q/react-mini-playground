@@ -1,4 +1,4 @@
-import type { EditorContentFileInfo } from '@/components/EditorContent';
+import type { EditorContentFileInfo } from '@/components/CodeContainer';
 import { createContext } from 'react';
 
 export interface MultipleFiles {

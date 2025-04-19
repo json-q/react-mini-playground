@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { PlaygroundContext } from '@/Playground/context';
+import { PlaygroundContext } from '@/core/context';
 import { useContext, useEffect, useMemo, useRef } from 'react';
 
 export default function FileNameList() {
