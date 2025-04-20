@@ -9,7 +9,7 @@ interface PlaygroundProviderProps {
 export const PlaygroundProvider = (props: PlaygroundProviderProps) => {
   const { children } = props;
   const [files, setFiles] = useState<MultipleFiles>(defaultFiles);
-  const [selectedFileName, setSelectedFileName] = useState('App.tsx');
+  const [selectedFileName, setSelectedFileName] = useState('main.tsx');
 
   const addFile = useCallback(
     (name: string) => {

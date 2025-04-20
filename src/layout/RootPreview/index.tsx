@@ -11,5 +11,5 @@ export default function RootPreview() {
     setCompiledCode(res);
   }, [files]);
 
-  return <div className="h-full">{compiledCode}</div>;
+  return <div className="h-full overflow-auto whitespace-pre-line break-all">{compiledCode}</div>;
 }

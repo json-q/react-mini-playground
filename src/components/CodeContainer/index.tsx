@@ -8,20 +8,20 @@ loader.config({
   },
 });
 
-export interface EditorContentFileInfo {
+export interface CodeContainerFileInfo {
   name: string;
   value: string;
   language: string;
 }
 
-interface EditorContentProps {
-  file: EditorContentFileInfo;
+interface CodeContainerProps {
+  file: CodeContainerFileInfo;
   onChange?: EditorProps['onChange'];
   options?: EditorProps['options'];
 }
 
-export default function EditorContent(props: EditorContentProps) {
-  const { file = {} as EditorContentFileInfo, onChange, options } = props;
+export default function CodeContainer(props: CodeContainerProps) {
+  const { file = {} as CodeContainerFileInfo, onChange, options } = props;
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     // 无法识别 jsx 的问题（设置 tsconfig）

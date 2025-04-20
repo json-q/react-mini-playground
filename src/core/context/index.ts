@@ -1,8 +1,8 @@
-import type { EditorContentFileInfo } from '@/components/CodeContainer';
+import type { CodeContainerFileInfo } from '@/components/CodeContainer';
 import { createContext } from 'react';
 
 export interface MultipleFiles {
-  [key: string]: EditorContentFileInfo;
+  [key: string]: CodeContainerFileInfo;
 }
 
 export interface PlaygroundContextProps {
