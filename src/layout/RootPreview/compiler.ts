@@ -15,18 +15,29 @@ export const compile = (files: MultipleFiles) => {
 
 export const babelTransform = (filename: string, code: string, files: MultipleFiles) => {
   let result = '';
+  const _code = beforBabelTransform(filename, code);
   try {
-    result = transform(code, {
+    result = transform(_code, {
       presets: ['react', 'typescript'],
       filename,
       plugins: [customResolver(files)],
-      retainLines: true,
+      retainLines: true, // 保留行号, 方便调试
     }).code!;
   } catch (e) {
     console.error('compiler Error', e);
   }
   return result;
 };
+
+// 兼容 jsx runtime 版本的 react, 自动注入 import React from 'react'
+function beforBabelTransform(filename: string, code: string) {
+  let _code = code;
+  const regexReact = /import\s+React/;
+  if (filename.endsWith('.tsx') || (filename.endsWith('.jsx') && !regexReact.test(code))) {
+    _code = `import React from 'react';\n${code}`;
+  }
+  return _code;
+}
 
 function customResolver(files: MultipleFiles): PluginObj {
   return {
@@ -46,11 +57,15 @@ function customResolver(files: MultipleFiles): PluginObj {
             path.node.source.value = css2Js(file);
           } else if (file.name.endsWith('.json')) {
             path.node.source.value = json2Js(file);
+          } else if (file.name.endsWith('.svg')) {
+            path.node.source.value = file.value;
           } else {
             // jsx/tsx 代码是 react+ts,需要经 babel 编译才能展示
-            path.node.source.value = URL.createObjectURL(
-              new Blob([babelTransform(file.name, file.value, files)], { type: 'text/javascript' }),
-            );
+            // 再次调用 babelTransform, 进行深度递归
+            const blob = new Blob([babelTransform(file.name, file.value, files)], {
+              type: 'text/javascript',
+            });
+            path.node.source.value = URL.createObjectURL(blob);
           }
         }
       },
