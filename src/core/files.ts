@@ -3,7 +3,6 @@ import importMap from './templates/import-map.json?raw';
 import AppCss from './templates/App.css?raw';
 import App from './templates/App.tsx?raw';
 import main from './templates/main.tsx?raw';
-import reactLogo from './templates/react.svg?raw';
 import { fileName2Language } from './util';
 
 // app 文件名
@@ -28,11 +27,6 @@ export const defaultFiles: MultipleFiles = {
     name: 'App.css',
     language: 'css',
     value: AppCss,
-  },
-  'react.svg': {
-    name: 'react.svg',
-    language: 'svg',
-    value: reactLogo,
   },
   [IMPORT_MAP_FILE_NAME]: {
     name: IMPORT_MAP_FILE_NAME,
