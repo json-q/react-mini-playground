@@ -50,6 +50,7 @@ export default function CodeContainer(props: CodeContainerProps) {
       value={file.value}
       onMount={handleEditorDidMount}
       onChange={onChange}
+      loading="Feching monaco source"
       options={{
         scrollBeyondLastLine: false,
         minimap: {

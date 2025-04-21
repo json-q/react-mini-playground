@@ -1,17 +1,11 @@
-import { cn } from '@/lib/utils';
 import { PlaygroundContext } from '@/core/context';
 import { useContext, useEffect, useMemo, useRef } from 'react';
 import { debounce } from 'lodash-es';
+import FileNameListItem from './FileNameListItem';
 
 export default function FileNameList() {
-  const {
-    files = {},
-    removeFile,
-    addFile,
-    updateFileName,
-    selectedFileName,
-    setSelectedFileName,
-  } = useContext(PlaygroundContext);
+  const { files = {}, setSelectedFileName } = useContext(PlaygroundContext);
+
   const fileContainerRef = useRef<HTMLDivElement>(null);
   const isHover = useRef(false);
 
@@ -52,21 +46,7 @@ export default function FileNameList() {
       className="scrollbar scrollbar-thumb-blue-500 scrollbar-h-[1px] scrollbar-track-transparent flex w-full flex-none gap-2 overflow-x-auto overflow-y-hidden border-b"
     >
       {fileTabs.map((item) => {
-        return (
-          <div
-            role="button"
-            key={item}
-            className={cn(
-              'cursor-pointer whitespace-nowrap p-2 align-middle transition-colors hover:bg-accent',
-              {
-                'border-b-2 border-b-blue-500 bg-accent text-blue-500': selectedFileName === item,
-              },
-            )}
-            onClick={() => selectedFile(item)}
-          >
-            {item}
-          </div>
-        );
+        return <FileNameListItem name={item} key={item} onClick={() => selectedFile(item)} />;
       })}
     </div>
   );

@@ -134,3 +134,7 @@
     scrollbar-width: thin;
   }
 }
+
+.sash-container > .sash {
+  cursor: col-resize !important;
+}
