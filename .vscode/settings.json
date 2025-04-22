@@ -24,8 +24,5 @@
     "pnpm-lock.yaml": true
   },
   // https://cva.style/docs/getting-started/installation#intellisense
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ]
+  "tailwindCSS.classFunctions": ["cva", "cx"]
 }

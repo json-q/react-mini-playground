@@ -4,7 +4,7 @@ import "allotment/dist/style.css";
 
 import RootHeader from "@/layout/root-header";
 import { PlaygroundProvider } from "@/core/context/PlaygroundProvider";
-import LazyLoading from "@/components/LazyLoading";
+import LazyLoading from "@/components/lazy-loading";
 import { Toaster } from "./components/ui/sonner";
 
 const RootEditor = lazy(() => import("@/layout/root-editor"));

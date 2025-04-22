@@ -2,7 +2,7 @@ import { lazy, Suspense, useContext } from "react";
 import FileNameList from "@/components/filename-list";
 import { PlaygroundContext } from "@/core/context";
 import { debounce } from "lodash-es";
-import LazyLoading from "@/components/LazyLoading";
+import LazyLoading from "@/components/lazy-loading";
 
 const CodeContainer = lazy(() => import("@/components/code-container"));
 
