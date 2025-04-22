@@ -109,9 +109,13 @@ export default function FileNameListItem(props: FileNameListItemProps) {
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>删除提醒</AlertDialogTitle>
+            <AlertDialogTitle>操作提醒</AlertDialogTitle>
             <AlertDialogDescription>
-              确定删除 <code>{delFileName}</code> ?
+              是否删除
+              <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-sesemibosemibold'>
+                {delFileName}
+              </code>
+              ?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

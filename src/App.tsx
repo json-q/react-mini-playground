@@ -2,18 +2,18 @@ import { lazy, Suspense } from "react";
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
 
-import Header from "@/layout/Header";
+import RootHeader from "@/layout/root-header";
 import { PlaygroundProvider } from "@/core/context/PlaygroundProvider";
 import LazyLoading from "@/components/LazyLoading";
 import { Toaster } from "./components/ui/sonner";
 
-const RootEditor = lazy(() => import("@/layout/RootEditor"));
-const RootPreview = lazy(() => import("@/layout/RootPreview"));
+const RootEditor = lazy(() => import("@/layout/root-editor"));
+const RootPreview = lazy(() => import("@/layout/root-preview"));
 
 function App() {
   return (
     <div className='flex h-screen flex-col'>
-      <Header />
+      <RootHeader />
       <Toaster richColors position='top-right' />
 
       <section className='flex-1'>

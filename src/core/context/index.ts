@@ -1,4 +1,4 @@
-import type { CodeContainerFileInfo } from "@/components/CodeContainer";
+import type { CodeContainerFileInfo } from "@/components/code-container";
 import { createContext } from "react";
 
 export interface MultipleFiles {

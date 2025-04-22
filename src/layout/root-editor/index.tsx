@@ -1,10 +1,10 @@
 import { lazy, Suspense, useContext } from "react";
-import FileNameList from "@/components/FileNameList";
+import FileNameList from "@/components/filename-list";
 import { PlaygroundContext } from "@/core/context";
 import { debounce } from "lodash-es";
 import LazyLoading from "@/components/LazyLoading";
 
-const CodeContainer = lazy(() => import("@/components/CodeContainer"));
+const CodeContainer = lazy(() => import("@/components/code-container"));
 
 export default function RootEditor() {
   const { files = {}, setFiles, selectedFileName } = useContext(PlaygroundContext);

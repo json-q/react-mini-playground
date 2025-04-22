@@ -1,7 +1,7 @@
 import { PlaygroundContext } from "@/core/context";
 import { useContext, useEffect, useMemo, useRef } from "react";
 import { debounce } from "lodash-es";
-import FileNameListItem from "./FileNameListItem";
+import FileNameListItem from "./filename-list-item";
 import { Plus } from "lucide-react";
 import { ENTRY_FILE_NAME } from "@/core/files";
 

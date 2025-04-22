@@ -1,7 +1,7 @@
 import { transform } from "@babel/standalone";
 import type { MultipleFiles } from "@/core/context";
 import { ENTRY_FILE_NAME } from "@/core/files";
-import type { CodeContainerFileInfo } from "@/components/CodeContainer";
+import type { CodeContainerFileInfo } from "@/components/code-container";
 
 type TransformOptions = Parameters<typeof transform>["1"];
 type PluginItem = TransformOptions["plugins"];
