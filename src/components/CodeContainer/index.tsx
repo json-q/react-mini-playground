@@ -12,6 +12,7 @@ export interface CodeContainerFileInfo {
   name: string;
   value: string;
   language: string;
+  readonly?: boolean;
 }
 
 interface CodeContainerProps {

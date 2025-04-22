@@ -17,11 +17,13 @@ export const defaultFiles: MultipleFiles = {
     name: ENTRY_FILE_NAME,
     language: fileName2Language(ENTRY_FILE_NAME),
     value: main,
+    readonly: true,
   },
   [APP_COMPONENT_FILE_NAME]: {
     name: APP_COMPONENT_FILE_NAME,
     language: fileName2Language(APP_COMPONENT_FILE_NAME),
     value: App,
+    readonly: true,
   },
   'App.css': {
     name: 'App.css',
@@ -32,5 +34,6 @@ export const defaultFiles: MultipleFiles = {
     name: IMPORT_MAP_FILE_NAME,
     language: fileName2Language(IMPORT_MAP_FILE_NAME),
     value: importMap,
+    readonly: true,
   },
 };

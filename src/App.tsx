@@ -1,29 +1,31 @@
-import { lazy, Suspense } from 'react';
-import { Allotment } from 'allotment';
-import 'allotment/dist/style.css';
+import { lazy, Suspense } from "react";
+import { Allotment } from "allotment";
+import "allotment/dist/style.css";
 
-import Header from '@/layout/Header';
-import { PlaygroundProvider } from '@/core/context/PlaygroundProvider';
-import LazyLoading from '@/components/LazyLoading';
+import Header from "@/layout/Header";
+import { PlaygroundProvider } from "@/core/context/PlaygroundProvider";
+import LazyLoading from "@/components/LazyLoading";
+import { Toaster } from "./components/ui/sonner";
 
-const RootEditor = lazy(() => import('@/layout/RootEditor'));
-const RootPreview = lazy(() => import('@/layout/RootPreview'));
+const RootEditor = lazy(() => import("@/layout/RootEditor"));
+const RootPreview = lazy(() => import("@/layout/RootPreview"));
 
 function App() {
   return (
-    <div className="flex h-screen flex-col">
+    <div className='flex h-screen flex-col'>
       <Header />
+      <Toaster richColors position='top-right' />
 
-      <section className="flex-1">
+      <section className='flex-1'>
         <PlaygroundProvider>
           <Allotment defaultSizes={[100, 100]}>
             <Allotment.Pane minSize={250}>
-              <Suspense fallback={<LazyLoading text="RootEditor Loading..." />}>
+              <Suspense fallback={<LazyLoading text='RootEditor Loading...' />}>
                 <RootEditor />
               </Suspense>
             </Allotment.Pane>
             <Allotment.Pane minSize={0}>
-              <Suspense fallback={<LazyLoading text="RootPreview Loading..." />}>
+              <Suspense fallback={<LazyLoading text='RootPreview Loading...' />}>
                 <RootPreview />
               </Suspense>
             </Allotment.Pane>
