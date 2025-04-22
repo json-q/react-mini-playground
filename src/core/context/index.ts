@@ -1,5 +1,5 @@
-import type { CodeContainerFileInfo } from '@/components/CodeContainer';
-import { createContext } from 'react';
+import type { CodeContainerFileInfo } from "@/components/CodeContainer";
+import { createContext } from "react";
 
 export interface MultipleFiles {
   [key: string]: CodeContainerFileInfo;
@@ -16,5 +16,5 @@ export interface PlaygroundContextProps {
 }
 
 export const PlaygroundContext = createContext<PlaygroundContextProps>({
-  selectedFileName: 'App.tsx',
+  selectedFileName: "App.tsx",
 } as PlaygroundContextProps);

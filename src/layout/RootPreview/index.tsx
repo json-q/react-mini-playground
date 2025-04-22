@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import { PlaygroundContext } from '@/core/context';
-import { compile } from './compiler';
-import iframeSource from './iframe.html?raw';
-import { IMPORT_MAP_FILE_NAME } from '@/core/files';
+import { useContext, useEffect, useState } from "react";
+import { PlaygroundContext } from "@/core/context";
+import { compile } from "./compiler";
+import iframeSource from "./iframe.html?raw";
+import { IMPORT_MAP_FILE_NAME } from "@/core/files";
 
 function genIframeUrl(importMap: string, compilerCode: string) {
   const htmlStr = iframeSource
@@ -19,7 +19,7 @@ function genIframeUrl(importMap: string, compilerCode: string) {
 
   return URL.createObjectURL(
     new Blob([htmlStr], {
-      type: 'text/html',
+      type: "text/html",
     }),
   );
 }
@@ -28,7 +28,7 @@ export default function RootPreview() {
   const { files = {} } = useContext(PlaygroundContext);
   const importMapContent = files[IMPORT_MAP_FILE_NAME].value;
 
-  const [compiledCode, setCompiledCode] = useState('');
+  const [compiledCode, setCompiledCode] = useState("");
   const [iframeUrl, setIframeUrl] = useState(() => genIframeUrl(importMapContent, compiledCode));
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function RootPreview() {
   console.log(iframeUrl);
 
   return (
-    <div className="h-full">
-      <iframe title="preview" src={iframeUrl} className="m-0 h-full w-full border-none p-0" />
+    <div className='h-full'>
+      <iframe title='preview' src={iframeUrl} className='m-0 h-full w-full border-none p-0' />
     </div>
   );
 }

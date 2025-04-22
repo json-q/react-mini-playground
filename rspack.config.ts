@@ -1,15 +1,15 @@
-import { defineConfig } from '@rspack/cli';
-import { rspack } from '@rspack/core';
-import * as RefreshPlugin from '@rspack/plugin-react-refresh';
-import * as path from 'node:path';
+import { defineConfig } from "@rspack/cli";
+import { rspack } from "@rspack/core";
+import * as RefreshPlugin from "@rspack/plugin-react-refresh";
+import * as path from "node:path";
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === "development";
 
 // Target browsers, see: https://github.com/browserslist/browserslist
-const targets = ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14'];
+const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];
 
 const splitChunkGroupConfig = {
-  filename: 'js/[name].js',
+  filename: "js/[name].js",
   priority: 100,
   enforce: true,
 };
@@ -17,19 +17,19 @@ const splitChunkGroupConfig = {
 export default defineConfig({
   context: __dirname,
   entry: {
-    main: './src/main.tsx',
+    main: "./src/main.tsx",
   },
-  devtool: isDev ? 'source-map' : false,
+  devtool: isDev ? "source-map" : false,
   output: {
     clean: true,
-    filename: 'js/[name].[contenthash:8].js',
-    cssFilename: 'css/[name].[contenthash:8].css',
-    assetModuleFilename: 'assets/[hash][ext][query]',
+    filename: "js/[name].[contenthash:8].js",
+    cssFilename: "css/[name].[contenthash:8].css",
+    assetModuleFilename: "assets/[hash][ext][query]",
   },
   resolve: {
-    extensions: ['...', '.ts', '.tsx', '.jsx'],
+    extensions: ["...", ".ts", ".tsx", ".jsx"],
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   module: {
@@ -41,17 +41,17 @@ export default defineConfig({
     rules: [
       {
         test: /\.svg$/,
-        type: 'asset',
+        type: "asset",
       },
       {
         test: /\.css$/,
-        use: ['postcss-loader'],
-        type: 'css',
+        use: ["postcss-loader"],
+        type: "css",
       },
       // support raw resource: https://rspack.dev/zh/guide/features/asset-module
       {
         resourceQuery: /raw/,
-        type: 'asset/source',
+        type: "asset/source",
       },
       {
         test: /\.(jsx?|tsx?)$/,
@@ -60,16 +60,16 @@ export default defineConfig({
         resourceQuery: { not: /raw/ },
         use: [
           {
-            loader: 'builtin:swc-loader',
+            loader: "builtin:swc-loader",
             options: {
               jsc: {
                 parser: {
-                  syntax: 'typescript',
+                  syntax: "typescript",
                   tsx: true,
                 },
                 transform: {
                   react: {
-                    runtime: 'automatic',
+                    runtime: "automatic",
                     development: isDev,
                     refresh: isDev,
                   },
@@ -84,10 +84,10 @@ export default defineConfig({
   },
   plugins: [
     new rspack.HtmlRspackPlugin({
-      template: './index.html',
+      template: "./index.html",
     }),
     new rspack.CopyRspackPlugin({
-      patterns: [{ from: './public', to: '.' }],
+      patterns: [{ from: "./public", to: "." }],
     }),
     isDev ? new RefreshPlugin() : null,
   ].filter(Boolean),
@@ -99,21 +99,21 @@ export default defineConfig({
       }),
     ],
     splitChunks: {
-      chunks: 'all',
+      chunks: "all",
       cacheGroups: {
         react: {
           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-          name: 'lib-react',
+          name: "lib-react",
           ...splitChunkGroupConfig,
         },
         babelStandalone: {
           test: /[\\/]node_modules[\\/]@babel[\\/]standalone[\\/]/,
-          name: 'lib-babel',
+          name: "lib-babel",
           ...splitChunkGroupConfig,
         },
         typescript: {
           test: /[\\/]node_modules[\\/]typescript[\\/]/,
-          name: 'lib-ts',
+          name: "lib-ts",
           ...splitChunkGroupConfig,
         },
       },

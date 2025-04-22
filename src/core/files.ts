@@ -1,16 +1,16 @@
-import type { MultipleFiles } from './context';
-import importMap from './templates/import-map.json?raw';
-import AppCss from './templates/App.css?raw';
-import App from './templates/App.tsx?raw';
-import main from './templates/main.tsx?raw';
-import { fileName2Language } from './util';
+import type { MultipleFiles } from "./context";
+import importMap from "./templates/import-map.json?raw";
+import AppCss from "./templates/App.css?raw";
+import App from "./templates/App.tsx?raw";
+import main from "./templates/main.tsx?raw";
+import { fileName2Language } from "./util";
 
 // app 文件名
-export const APP_COMPONENT_FILE_NAME = 'App.tsx';
+export const APP_COMPONENT_FILE_NAME = "App.tsx";
 // esm 模块映射文件名
-export const IMPORT_MAP_FILE_NAME = 'import-map.json';
+export const IMPORT_MAP_FILE_NAME = "import-map.json";
 // app 入口文件名
-export const ENTRY_FILE_NAME = 'main.tsx';
+export const ENTRY_FILE_NAME = "main.tsx";
 
 export const defaultFiles: MultipleFiles = {
   [ENTRY_FILE_NAME]: {
@@ -25,9 +25,9 @@ export const defaultFiles: MultipleFiles = {
     value: App,
     readonly: true,
   },
-  'App.css': {
-    name: 'App.css',
-    language: 'css',
+  "App.css": {
+    name: "App.css",
+    language: "css",
     value: AppCss,
   },
   [IMPORT_MAP_FILE_NAME]: {

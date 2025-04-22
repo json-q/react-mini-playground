@@ -1,7 +1,7 @@
-import { useCallback, useState } from 'react';
-import { type MultipleFiles, PlaygroundContext } from '.';
-import { fileName2Language } from '../util';
-import { defaultFiles } from '../files';
+import { useCallback, useState } from "react";
+import { type MultipleFiles, PlaygroundContext } from ".";
+import { fileName2Language } from "../util";
+import { defaultFiles } from "../files";
 
 interface PlaygroundProviderProps {
   children: React.ReactNode;
@@ -9,14 +9,14 @@ interface PlaygroundProviderProps {
 export const PlaygroundProvider = (props: PlaygroundProviderProps) => {
   const { children } = props;
   const [files, setFiles] = useState<MultipleFiles>(defaultFiles);
-  const [selectedFileName, setSelectedFileName] = useState('main.tsx');
+  const [selectedFileName, setSelectedFileName] = useState("main.tsx");
 
   const addFile = useCallback(
     (name: string) => {
       files[name] = {
         name,
         language: fileName2Language(name),
-        value: '',
+        value: "",
       };
       setFiles({ ...files });
     },
