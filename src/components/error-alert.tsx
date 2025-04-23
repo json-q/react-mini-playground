@@ -1,6 +1,6 @@
 import { AlertCircle, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
@@ -13,7 +13,11 @@ export default function ErrorAlert(props: ErrorAlertProps) {
   const { errMsg, className } = props;
   const [visible, setVisible] = useState(true);
 
-  if (!visible || !errMsg) return null;
+  useEffect(() => {
+    setVisible(true);
+  }, [errMsg]);
+
+  if (!visible) return null;
 
   const closeError = () => {
     setVisible(false);

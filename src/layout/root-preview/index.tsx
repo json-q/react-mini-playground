@@ -53,8 +53,6 @@ export default function RootPreview() {
   const [errMsg, setErrMsg] = useState<string>();
 
   const handleMessage = (event: MessageEvent<MessageData>) => {
-    console.log(event);
-
     if (event.data.type === "ERROR") {
       setErrMsg(event.data.message);
     }
@@ -67,7 +65,9 @@ export default function RootPreview() {
     };
   }, []);
 
-  console.log("iframe render-----", iframeUrl);
+  useEffect(() => {
+    console.log("iframe render-----", iframeUrl);
+  }, [iframeUrl]);
 
   return (
     <div className='box-border h-full w-full overflow-auto'>
@@ -79,7 +79,7 @@ export default function RootPreview() {
         })}
       />
 
-      <ErrorAlert className='mx-12 mt-12' errMsg={errMsg} />
+      {errMsg && <ErrorAlert className='mx-12 mt-12' errMsg={errMsg} />}
     </div>
   );
 }

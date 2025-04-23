@@ -1,5 +1,6 @@
 import { Editor, type EditorProps, type OnMount, loader } from "@monaco-editor/react";
 import { createATA } from "./ata";
+import { useTheme } from "@/hooks/useTheme";
 
 loader.config({
   paths: {
@@ -23,6 +24,7 @@ interface CodeContainerProps {
 
 export default function CodeContainer(props: CodeContainerProps) {
   const { file = {} as CodeContainerFileInfo, onChange, options } = props;
+  const { theme } = useTheme();
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     // 无法识别 jsx 的问题（设置 tsconfig）
@@ -53,6 +55,7 @@ export default function CodeContainer(props: CodeContainerProps) {
       onChange={onChange}
       loading='Feching monaco source'
       options={{
+        theme: theme === "system" ? undefined : `vs-${theme}`,
         scrollBeyondLastLine: false,
         minimap: {
           enabled: false,
