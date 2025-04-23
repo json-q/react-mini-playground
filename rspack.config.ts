@@ -2,6 +2,7 @@ import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
 import * as RefreshPlugin from "@rspack/plugin-react-refresh";
 import * as path from "node:path";
+import * as CompressionPlugin from "compression-webpack-plugin";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -12,6 +13,23 @@ const splitChunkGroupConfig = {
   filename: "js/[name].js",
   priority: 100,
   enforce: true,
+};
+
+const jsxBabelLoaderOptions = {
+  sourceMap: true,
+  jsc: {
+    parser: {
+      syntax: "typescript",
+      tsx: true,
+    },
+    externalHelpers: true,
+    transform: {
+      react: {
+        runtime: "automatic",
+      },
+    },
+  },
+  env: { targets },
 };
 
 export default defineConfig({
@@ -62,21 +80,30 @@ export default defineConfig({
           {
             loader: "builtin:swc-loader",
             options: {
-              jsc: {
-                parser: {
-                  syntax: "typescript",
-                  tsx: true,
-                },
-                transform: {
-                  react: {
-                    runtime: "automatic",
-                    development: isDev,
-                    refresh: isDev,
-                  },
+              ...jsxBabelLoaderOptions,
+              transform: {
+                react: {
+                  runtime: "automatic",
+                  development: isDev,
+                  refresh: isDev,
                 },
               },
-              env: { targets },
             },
+          },
+        ],
+      },
+      {
+        test: /\.(jsx|tsx)$/,
+        resourceQuery: { not: /raw/ },
+        use: [
+          {
+            loader: "builtin:swc-loader",
+            options: {
+              ...jsxBabelLoaderOptions,
+            },
+          },
+          {
+            loader: "babel-loader",
           },
         ],
       },
@@ -89,6 +116,12 @@ export default defineConfig({
     new rspack.CopyRspackPlugin({
       patterns: [{ from: "./public", to: "." }],
     }),
+    isDev
+      ? null
+      : new CompressionPlugin({
+          test: /\.(js|css)(\?.*)?$/i,
+          threshold: 10240,
+        }),
     isDev ? new RefreshPlugin() : null,
   ].filter(Boolean),
   optimization: {

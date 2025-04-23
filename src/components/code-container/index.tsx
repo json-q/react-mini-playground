@@ -53,7 +53,7 @@ export default function CodeContainer(props: CodeContainerProps) {
       value={file.value}
       onMount={handleEditorDidMount}
       onChange={onChange}
-      loading='Feching monaco source'
+      loading='Fetching monaco source'
       options={{
         theme: theme === "system" ? undefined : `vs-${theme}`,
         scrollBeyondLastLine: false,
