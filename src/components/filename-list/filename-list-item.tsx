@@ -47,7 +47,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
 
   const onConfirmEdit = () => {
     if (!inputRef.current?.value) {
-      toast.error("重命名文件名不能为空");
+      toast.error("重命名文件名不能为空", { position: "top-center" });
       setIsEditing(false);
       return;
     }
@@ -109,9 +109,9 @@ export default function FileNameListItem(props: FileNameListItemProps) {
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>操作提醒</AlertDialogTitle>
+            <AlertDialogTitle>删除提醒</AlertDialogTitle>
             <AlertDialogDescription>
-              是否删除
+              是否确定删除
               <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-sesemibosemibold'>
                 {delFileName}
               </code>

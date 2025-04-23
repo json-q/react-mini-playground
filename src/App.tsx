@@ -2,12 +2,12 @@ import { lazy, Suspense } from "react";
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
 
-import RootHeader from "@/layout/root-header";
 import { PlaygroundProvider } from "@/core/context/PlaygroundProvider";
 import LazyLoading from "@/components/lazy-loading";
 import { Toaster } from "./components/ui/sonner";
 import { ThemeProvider } from "./core/context/ThemeProvider";
 
+const RootHeader = lazy(() => import("@/layout/root-header"));
 const RootEditor = lazy(() => import("@/layout/root-editor"));
 const RootPreview = lazy(() => import("@/layout/root-preview"));
 
@@ -15,11 +15,14 @@ function App() {
   return (
     <ThemeProvider defaultTheme='light'>
       <div className='flex h-screen flex-col'>
-        <RootHeader />
-        <Toaster richColors position='top-right' />
+        <PlaygroundProvider>
+          <Suspense fallback={<header className='h-12 border-b' />}>
+            <RootHeader />
+          </Suspense>
 
-        <section className='flex-1'>
-          <PlaygroundProvider>
+          <Toaster richColors position='top-right' toastOptions={{ duration: 2000 }} />
+
+          <section className='flex-1'>
             <Allotment defaultSizes={[100, 100]}>
               <Allotment.Pane minSize={250}>
                 <Suspense fallback={<LazyLoading text='RootEditor Loading...' />}>
@@ -32,8 +35,8 @@ function App() {
                 </Suspense>
               </Allotment.Pane>
             </Allotment>
-          </PlaygroundProvider>
-        </section>
+          </section>
+        </PlaygroundProvider>
       </div>
     </ThemeProvider>
   );

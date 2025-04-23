@@ -1,4 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { compress, decodeCompress } from "@/core/util";
+
 import { type MultipleFiles, PlaygroundContext } from ".";
 import { fileName2Language } from "../util";
 import { defaultFiles, ENTRY_FILE_NAME } from "../files";
@@ -6,27 +8,47 @@ import { defaultFiles, ENTRY_FILE_NAME } from "../files";
 interface PlaygroundProviderProps {
   children: React.ReactNode;
 }
+
+function genFilesFromHash(): MultipleFiles {
+  try {
+    const hash = window.location.hash.slice(1);
+    const strFiles = decodeCompress(hash);
+    return JSON.parse(strFiles);
+  } catch (error) {
+    console.warn(error);
+  }
+  return defaultFiles;
+}
+
 export const PlaygroundProvider = (props: PlaygroundProviderProps) => {
   const { children } = props;
-  const [files, setFiles] = useState<MultipleFiles>(defaultFiles);
+
+  const [files, setFiles] = useState<MultipleFiles>(genFilesFromHash);
   const [selectedFileName, setSelectedFileName] = useState(ENTRY_FILE_NAME);
+
+  useEffect(() => {
+    const hash = compress(JSON.stringify(files));
+    window.location.hash = hash;
+  }, [files]);
 
   const addFile = useCallback(
     (name: string) => {
-      files[name] = {
-        name,
-        language: fileName2Language(name),
-        value: "",
-      };
-      setFiles({ ...files });
+      setFiles({
+        ...files,
+        [name]: {
+          name,
+          language: fileName2Language(name),
+          value: "",
+        },
+      });
     },
     [files],
   );
 
   const removeFile = useCallback(
     (name: string) => {
-      delete files[name];
-      setFiles({ ...files });
+      const { [name]: _, ...restFiles } = files;
+      setFiles(restFiles);
     },
     [files],
   );
