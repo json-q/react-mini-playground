@@ -55,6 +55,9 @@ export default function RootPreview() {
   const handleMessage = (event: MessageEvent<MessageData>) => {
     if (event.data.type === "ERROR") {
       setErrMsg(event.data.message);
+    } else {
+      // reset error message
+      setErrMsg(undefined);
     }
   };
 
