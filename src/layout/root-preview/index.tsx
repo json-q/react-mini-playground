@@ -55,9 +55,6 @@ export default function RootPreview() {
   const handleMessage = (event: MessageEvent<MessageData>) => {
     if (event.data.type === "ERROR") {
       setErrMsg(event.data.message);
-    } else {
-      // reset error message
-      setErrMsg(undefined);
     }
   };
 
@@ -70,6 +67,13 @@ export default function RootPreview() {
 
   useEffect(() => {
     console.log("iframe render-----", iframeUrl);
+    /**
+      执行顺序如下：
+      生成 iframeUrl, 重置错误信息
+      iframe 侧渲染
+      渲染出错，触发 messageEvent, 重新渲染 ErrorAlert
+     */
+    setErrMsg(undefined);
   }, [iframeUrl]);
 
   return (
