@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { PlaygroundContext } from "@/core/context";
-import { compile } from "./compiler";
+import type { CompilerMessageEventData } from "./compiler.worker";
 import iframeSource from "./iframe.html?raw";
 import { IMPORT_MAP_FILE_NAME } from "@/core/files";
 import ErrorAlert from "@/components/error-alert";
 import { cn } from "@/lib/utils";
+
+const compilerWorker = new Worker(new URL("./compiler.worker.ts", import.meta.url), {
+  type: "module",
+});
 
 function genIframeUrl(importMap: string, compilerCode: string) {
   const htmlStr = iframeSource
@@ -36,10 +40,20 @@ export default function RootPreview() {
 
   // ============== Compiler ==============
   const [compiledCode, setCompiledCode] = useState("");
+
   useEffect(() => {
-    const res = compile(files);
-    setCompiledCode(res);
+    compilerWorker.postMessage(files);
   }, [files]);
+
+  useEffect(() => {
+    compilerWorker.addEventListener("message", (ev: MessageEvent<CompilerMessageEventData>) => {
+      if (ev.data.type === "CODE_COMPILED") {
+        setCompiledCode(ev.data.data as string);
+      } else if (ev.data.type === "CODE_COMPILE_ERROR") {
+        console.error(ev.data.data);
+      }
+    });
+  }, []);
 
   // ============== Iframe Url ==============
   const [iframeUrl, setIframeUrl] = useState(() => genIframeUrl(importMapContent, compiledCode));
@@ -52,9 +66,9 @@ export default function RootPreview() {
   // ============== Error Handler ==============
   const [errMsg, setErrMsg] = useState<string>();
 
-  const handleMessage = (event: MessageEvent<MessageData>) => {
-    if (event.data.type === "ERROR") {
-      setErrMsg(event.data.message);
+  const handleMessage = (ev: MessageEvent<MessageData>) => {
+    if (ev.data.type === "ERROR") {
+      setErrMsg(ev.data.message);
     }
   };
 

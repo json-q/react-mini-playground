@@ -7,8 +7,28 @@ type TransformOptions = Parameters<typeof transform>["1"];
 type PluginItem = TransformOptions["plugins"];
 type PluginObj = NonNullable<PluginItem>[number];
 
+export interface CompilerMessageEventData {
+  type: "CODE_COMPILED" | "CODE_COMPILE_ERROR";
+  data: string | Error;
+}
+
+// woker compiler
+self.addEventListener("message", ({ data }) => {
+  try {
+    self.postMessage({
+      type: "CODE_COMPILED",
+      data: compile(data),
+    } satisfies CompilerMessageEventData);
+  } catch (e) {
+    self.postMessage({
+      type: "CODE_COMPILE_ERROR",
+      data: e as Error,
+    } satisfies CompilerMessageEventData);
+  }
+});
+
 // 编译 main.tsx 的内容
-export const compile = (files: MultipleFiles) => {
+const compile = (files: MultipleFiles) => {
   const main = files[ENTRY_FILE_NAME];
   return babelTransform(ENTRY_FILE_NAME, main.value, files);
 };
