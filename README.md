@@ -16,4 +16,4 @@ React 简单实现 [vue playground](https://play.vuejs.org) 的功能。
 - [x] 文件下载
 - [x] babel 编译时的长任务 worker 优化
 
-> 我认为这种功能，使用 `vite` 可以带来更好的开发体验。`rspack` 和 `rsbuild` 虽然已支持 `?raw` 资源，但感觉并不完善
+> 使用 `vite` 可以带来更好的开发体验。`rspack` 和 `rsbuild` 虽然已支持 `?raw` 资源，但是在开发模式下仍有瑕疵（非构建工具问题，是两种不同的开发模式导致的），且 `rsbuild` 在引用 `?raw` 资源的行为上和 `rspack`表现不一致（可能是 bug）

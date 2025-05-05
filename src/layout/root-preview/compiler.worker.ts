@@ -12,7 +12,7 @@ export interface CompilerMessageEventData {
   data: string | Error;
 }
 
-// woker compiler
+// worker compiler
 self.addEventListener("message", ({ data }) => {
   try {
     self.postMessage({
@@ -35,7 +35,7 @@ const compile = (files: MultipleFiles) => {
 
 export const babelTransform = (filename: string, code: string, files: MultipleFiles) => {
   let result = "";
-  const _code = beforBabelTransform(filename, code);
+  const _code = beforeBabelTransform(filename, code);
   try {
     result = transform(_code, {
       presets: ["react", "typescript"],
@@ -50,7 +50,7 @@ export const babelTransform = (filename: string, code: string, files: MultipleFi
 };
 
 // 兼容 jsx runtime 版本的 react, 自动注入 import React from 'react'
-function beforBabelTransform(filename: string, code: string) {
+function beforeBabelTransform(filename: string, code: string) {
   let _code = code;
   const regexReact = /import\s+React/;
   if (filename.endsWith(".tsx") || (filename.endsWith(".jsx") && !regexReact.test(code))) {

@@ -16,4 +16,4 @@ Implement the core functionality of Vue Playground.
 - [x] File download
 - [x] Long task Worker optimization for Babel compilation
 
-> I believe using `Vite` can provide a better development experience. Although `rspack` and `rsbuild` already support `?raw` resources, it feels not yet fully refined.
+> Using `vite` can provide a better development experience. Although both `rspack` and `rsbuild` support `?raw` resources, they still have some issues in dev mode (not due to the build tools themselves, but rather differences in the underlying development modes). Moreover, `rsbuild` behaves differently when referencing `?raw` resources compared to `rspack` (may be a bug)
