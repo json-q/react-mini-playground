@@ -94,7 +94,7 @@ function customResolver(files: MultipleFiles): PluginObj {
 }
 
 function getModuleFile(files: MultipleFiles, modulePath: string) {
-  let mouduleName = modulePath.split("./").pop() || "";
+  let moduleName = modulePath.split("./").pop() || "";
   // 是相对路径: 导入的模块名称 eg: ./App.tsx --> App.tsx
   if (modulePath.includes(".")) {
     // 只识别以下几种文件类型: ts tsx js jsx
@@ -106,14 +106,14 @@ function getModuleFile(files: MultipleFiles, modulePath: string) {
         );
       })
       .find((key) => {
-        return key.split(".").includes(mouduleName);
+        return key.split(".").includes(moduleName);
       });
 
     if (realModuleName) {
-      mouduleName = realModuleName;
+      moduleName = realModuleName;
     }
   }
-  return files[mouduleName];
+  return files[moduleName];
 }
 
 function css2Js(file: CodeContainerFileInfo) {

@@ -14,9 +14,7 @@ export function createATA(onDownloadFile: (code: string, path: string) => void) 
       return fetch(fetchUrl.href, init);
     },
     delegate: {
-      receivedFile: (code, path) => {
-        onDownloadFile(code, path);
-      },
+      receivedFile: onDownloadFile,
     },
   });
 

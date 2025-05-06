@@ -125,6 +125,7 @@
 }
 
 @layer base {
+  /* 不能影响自定义的 scrollbar */
   *:not(.scrollbar) {
     scrollbar-width: thin;
   }
