@@ -47,7 +47,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
 
   const onConfirmEdit = () => {
     if (!inputRef.current?.value) {
-      toast.error("重命名文件名不能为空", { position: "top-center" });
+      toast.error("Rename filename cannot be empty", { position: "top-center" });
       setIsEditing(false);
       return;
     }
@@ -78,9 +78,9 @@ export default function FileNameListItem(props: FileNameListItemProps) {
       role='button'
       key={name}
       className={cn(
-        "flex cursor-pointer flex-row items-center whitespace-nowrap p-2 align-middle transition-colors hover:bg-accent",
+        "flex cursor-pointer flex-row items-center whitespace-nowrap border-b-2 border-b-transparent p-2 align-middle transition-colors hover:bg-accent",
         {
-          "border-primary border-b-2 bg-accent text-primary": selectedFileName === name,
+          "border-primary bg-accent text-primary": selectedFileName === name,
         },
       )}
       onClick={() => onClick?.(name)}
