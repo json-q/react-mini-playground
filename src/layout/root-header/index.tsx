@@ -32,7 +32,7 @@ export default function RootHeader() {
   const copyLink = () => {
     // chrome 66 support clipboard.writeText
     navigator.clipboard.writeText(window.location.href);
-    toast.success("分享链接复制成功", { position: "top-center" });
+    toast.success("Share link copied!", { position: "top-center" });
   };
 
   return (
@@ -58,12 +58,12 @@ export default function RootHeader() {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>下载提醒</AlertDialogTitle>
-              <AlertDialogDescription>是否下载源代码文件 ?</AlertDialogDescription>
+              <AlertDialogTitle>Download</AlertDialogTitle>
+              <AlertDialogDescription>Are you sure download source file?</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>取消</AlertDialogCancel>
-              <AlertDialogAction onClick={() => downloadFiles(files || {})}>确定</AlertDialogAction>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={() => downloadFiles(files || {})}>Ok</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
