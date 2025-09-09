@@ -1,27 +1,27 @@
-import { transform } from "@babel/standalone";
-import type { MultipleFiles } from "@/core/context";
-import { ENTRY_FILE_NAME } from "@/core/files";
-import type { CodeContainerFileInfo } from "@/components/code-container";
+import { transform } from '@babel/standalone';
+import type { CodeContainerFileInfo } from '@/components/code-container';
+import type { MultipleFiles } from '@/core/context';
+import { ENTRY_FILE_NAME } from '@/core/files';
 
-type TransformOptions = Parameters<typeof transform>["1"];
-type PluginItem = TransformOptions["plugins"];
+type TransformOptions = Parameters<typeof transform>['1'];
+type PluginItem = TransformOptions['plugins'];
 type PluginObj = NonNullable<PluginItem>[number];
 
 export interface CompilerMessageEventData {
-  type: "CODE_COMPILED" | "CODE_COMPILE_ERROR";
+  type: 'CODE_COMPILED' | 'CODE_COMPILE_ERROR';
   data: string | Error;
 }
 
 // worker compiler
-self.addEventListener("message", ({ data }) => {
+self.addEventListener('message', ({ data }) => {
   try {
     self.postMessage({
-      type: "CODE_COMPILED",
+      type: 'CODE_COMPILED',
       data: compile(data),
     } satisfies CompilerMessageEventData);
   } catch (e) {
     self.postMessage({
-      type: "CODE_COMPILE_ERROR",
+      type: 'CODE_COMPILE_ERROR',
       data: e as Error,
     } satisfies CompilerMessageEventData);
   }
@@ -34,17 +34,17 @@ const compile = (files: MultipleFiles) => {
 };
 
 export const babelTransform = (filename: string, code: string, files: MultipleFiles) => {
-  let result = "";
+  let result = '';
   const _code = beforeBabelTransform(filename, code);
   try {
     result = transform(_code, {
-      presets: ["react", "typescript"],
+      presets: ['react', 'typescript'],
       filename,
       plugins: [customResolver(files)],
       retainLines: true, // 保留行号, 方便调试
     }).code!;
   } catch (e) {
-    console.error("compiler Error", e);
+    console.error('compiler Error', e);
   }
   return result;
 };
@@ -53,7 +53,7 @@ export const babelTransform = (filename: string, code: string, files: MultipleFi
 function beforeBabelTransform(filename: string, code: string) {
   let _code = code;
   const regexReact = /import\s+React/;
-  if (filename.endsWith(".tsx") || (filename.endsWith(".jsx") && !regexReact.test(code))) {
+  if (filename.endsWith('.tsx') || (filename.endsWith('.jsx') && !regexReact.test(code))) {
     _code = `import React from 'react';\n${code}`;
   }
   return _code;
@@ -68,22 +68,22 @@ function customResolver(files: MultipleFiles): PluginObj {
         // 类似于 path.node.source.value = '23333'; 而 value 就可以在引用本地路径时, 就可以替换成 blob 链接
         // see: https://astexplorer.net
         const modulePath = path.node.source.value;
-        if (modulePath.startsWith(".")) {
+        if (modulePath.startsWith('.')) {
           // 处理相对路径
           const file = getModuleFile(files, modulePath);
           if (!file) return;
 
-          if (file.name.endsWith(".css")) {
+          if (file.name.endsWith('.css')) {
             path.node.source.value = css2Js(file);
-          } else if (file.name.endsWith(".json")) {
+          } else if (file.name.endsWith('.json')) {
             path.node.source.value = json2Js(file);
-          } else if (file.name.endsWith(".svg")) {
+          } else if (file.name.endsWith('.svg')) {
             path.node.source.value = file.value;
           } else {
             // jsx/tsx 代码是 react+ts,需要经 babel 编译才能展示
             // 再次调用 babelTransform, 进行深度递归
             const blob = new Blob([babelTransform(file.name, file.value, files)], {
-              type: "text/javascript",
+              type: 'text/javascript',
             });
             path.node.source.value = URL.createObjectURL(blob);
           }
@@ -94,19 +94,17 @@ function customResolver(files: MultipleFiles): PluginObj {
 }
 
 function getModuleFile(files: MultipleFiles, modulePath: string) {
-  let moduleName = modulePath.split("./").pop() || "";
+  let moduleName = modulePath.split('./').pop() || '';
   // 是相对路径: 导入的模块名称 eg: ./App.tsx --> App.tsx
-  if (modulePath.includes(".")) {
+  if (modulePath.includes('.')) {
     // 只识别以下几种文件类型: ts tsx js jsx
     // 拿到不带后缀的文件名称 App
     const realModuleName = Object.keys(files)
       .filter((key) => {
-        return (
-          key.endsWith(".ts") || key.endsWith(".tsx") || key.endsWith(".js") || key.endsWith(".jsx")
-        );
+        return key.endsWith('.ts') || key.endsWith('.tsx') || key.endsWith('.js') || key.endsWith('.jsx');
       })
       .find((key) => {
-        return key.split(".").includes(moduleName);
+        return key.split('.').includes(moduleName);
       });
 
     if (realModuleName) {
@@ -117,7 +115,7 @@ function getModuleFile(files: MultipleFiles, modulePath: string) {
 }
 
 function css2Js(file: CodeContainerFileInfo) {
-  const randomId = new Date().getTime();
+  const randomId = Date.now();
 
   const js = `
     (() => {
@@ -131,10 +129,10 @@ function css2Js(file: CodeContainerFileInfo) {
     })()
   `;
 
-  return URL.createObjectURL(new Blob([js], { type: "text/javascript" }));
+  return URL.createObjectURL(new Blob([js], { type: 'text/javascript' }));
 }
 
 function json2Js(file: CodeContainerFileInfo) {
   const js = `export default ${file.value}`;
-  return URL.createObjectURL(new Blob([js], { type: "text/javascript" }));
+  return URL.createObjectURL(new Blob([js], { type: 'text/javascript' }));
 }

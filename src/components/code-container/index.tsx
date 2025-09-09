@@ -1,11 +1,11 @@
-import { Editor, type EditorProps, type OnMount, loader } from "@monaco-editor/react";
-import { createATA } from "./ata";
-import { useTheme } from "@/hooks/useTheme";
+import { Editor, type EditorProps, loader, type OnMount } from '@monaco-editor/react';
+import { useTheme } from '@/hooks/useTheme';
+import { createATA } from './ata';
 
 loader.config({
   paths: {
     // node_modules\@monaco-editor\loader\lib\es\config\index.js
-    vs: "https://fastly.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs",
+    vs: 'https://fastly.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs',
   },
 });
 
@@ -18,8 +18,8 @@ export interface CodeContainerFileInfo {
 
 interface CodeContainerProps {
   file: CodeContainerFileInfo;
-  onChange?: EditorProps["onChange"];
-  options?: EditorProps["options"];
+  onChange?: EditorProps['onChange'];
+  options?: EditorProps['options'];
 }
 
 export default function CodeContainer(props: CodeContainerProps) {
@@ -46,16 +46,16 @@ export default function CodeContainer(props: CodeContainerProps) {
 
   return (
     <Editor
-      height='100%'
-      className='flex-1'
+      height="100%"
+      className="flex-1"
       path={file.name}
       language={file.language}
       value={file.value}
       onMount={handleEditorDidMount}
       onChange={onChange}
-      loading='Fetching monaco source'
+      loading="Fetching monaco source"
       options={{
-        theme: theme === "system" ? undefined : `vs-${theme}`,
+        theme: theme === 'system' ? undefined : `vs-${theme}`,
         scrollBeyondLastLine: false,
         minimap: {
           enabled: false,

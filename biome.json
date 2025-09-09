@@ -1,118 +1,73 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "files": {
-    "ignoreUnknown": false,
-    "ignore": ["**/pnpm-lock.yaml", "**/node_modules", "**/public", "**/dist/*"]
-  },
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
-    "enabled": true,
+    "enabled": false,
     "clientKind": "git",
-    "useIgnoreFile": true
+    "useIgnoreFile": false
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["**", "!node_modules", "!public", "!dist"]
   },
   "formatter": {
     "enabled": true,
-    "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 100,
-    "attributePosition": "auto"
+    "lineWidth": 120,
+    "bracketSameLine": false
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
-      "a11y": {
-        "useHtmlLang": "warn",
-        "noHeaderScope": "warn",
-        "useValidAriaRole": {
-          "level": "warn",
-          "options": {
-            "ignoreNonDom": false,
-            "allowInvalidRoles": ["none", "text"]
-          }
-        },
-        "useSemanticElements": "off",
-        "noSvgWithoutTitle": "off",
-        "useMediaCaption": "off",
-        "noAutofocus": "off",
-        "noBlankTarget": "off",
-        "useFocusableInteractive": "off",
-        "useAriaPropsForRole": "off",
-        "useKeyWithClickEvents": "off"
-      },
-      "complexity": {
-        "noUselessStringConcat": "warn",
-        "noForEach": "off"
-      },
-      "correctness": {
-        "noUnusedVariables": "warn",
-        "noUnusedImports": "warn",
-        "useArrayLiterals": "warn",
-        "noNewSymbol": "warn",
-        "useJsxKeyInIterable": "off",
-        "useExhaustiveDependencies": "off",
-        "noUnnecessaryContinue": "warn"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off"
-      },
       "style": {
-        "noNonNullAssertion": "off",
-        "useFragmentSyntax": "warn",
-        "noYodaExpression": "warn",
-        "useDefaultParameterLast": "warn",
-        "useExponentiationOperator": "off",
-        "noUnusedTemplateLiteral": "off",
-        "noUselessElse": "off"
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "noNonNullAssertion": "off"
       },
       "suspicious": {
         "noExplicitAny": "off"
       },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
       "nursery": {
-        "noStaticElementInteractions": "warn",
-        "noHeadImportInDocument": "warn",
-        "noDocumentImportInPage": "warn",
-        "noDuplicateElseIf": "warn",
-        "noIrregularWhitespace": "warn",
-        "useValidAutocomplete": "warn",
         "useSortedClasses": {
-          "level": "warn",
           "fix": "safe",
-          "options": {
-            "functions": ["clsx", "cva", "cn"]
-          }
+          "level": "warn"
         }
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useFocusableInteractive": "off",
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
       }
     }
   },
   "javascript": {
-    "jsxRuntime": "reactClassic",
     "formatter": {
-      "jsxQuoteStyle": "single",
-      "quoteProperties": "asNeeded",
+      "jsxQuoteStyle": "double",
       "trailingCommas": "all",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
       "bracketSameLine": false,
-      "quoteStyle": "double",
-      "attributePosition": "auto"
+      "quoteStyle": "single"
     }
   },
-  "json": {
-    "formatter": {
-      "enabled": true,
-      "trailingCommas": "none"
-    },
-    "parser": {
-      "allowComments": true,
-      "allowTrailingCommas": false
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
     }
-  },
-  "css": {
-    "formatter": { "enabled": false },
-    "linter": { "enabled": false }
-  },
-  "organizeImports": { "enabled": false }
+  }
 }

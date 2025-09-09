@@ -1,15 +1,15 @@
-import { strFromU8, strToU8, unzlibSync, zlibSync } from "fflate";
-import JSZip from "jszip";
-import { saveAs } from "file-saver";
-import type { MultipleFiles } from "@/core/context";
+import { strFromU8, strToU8, unzlibSync, zlibSync } from 'fflate';
+import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
+import type { MultipleFiles } from '@/core/context';
 
 export function fileName2Language(name: string) {
-  const suffix = name.split(".").pop() || "";
-  if (["js", "jsx"].includes(suffix)) return "javascript";
-  if (["ts", "tsx"].includes(suffix)) return "typescript";
-  if (["json", "jsonc"].includes(suffix)) return "json";
-  if (["css"].includes(suffix)) return "css";
-  return "javascript";
+  const suffix = name.split('.').pop() || '';
+  if (['js', 'jsx'].includes(suffix)) return 'javascript';
+  if (['ts', 'tsx'].includes(suffix)) return 'typescript';
+  if (['json', 'jsonc'].includes(suffix)) return 'json';
+  if (['css'].includes(suffix)) return 'css';
+  return 'javascript';
 }
 
 export function compress(data: string) {
@@ -35,6 +35,6 @@ export async function downloadFiles(files: MultipleFiles) {
     zip.file(name, files[name].value);
   });
 
-  const blob = await zip.generateAsync({ type: "blob" });
+  const blob = await zip.generateAsync({ type: 'blob' });
   saveAs(blob, `playground-code.zip`);
 }

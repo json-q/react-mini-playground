@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { PlaygroundContext } from "@/core/context";
-import type { CompilerMessageEventData } from "./compiler.worker";
-import iframeSource from "./iframe.html?raw";
-import { IMPORT_MAP_FILE_NAME } from "@/core/files";
-import ErrorAlert from "@/components/error-alert";
-import { cn } from "@/lib/utils";
+import { useContext, useEffect, useState } from 'react';
+import ErrorAlert from '@/components/error-alert';
+import { PlaygroundContext } from '@/core/context';
+import { IMPORT_MAP_FILE_NAME } from '@/core/files';
+import { cn } from '@/lib/utils';
+import type { CompilerMessageEventData } from './compiler.worker';
+import iframeSource from './iframe.html?raw';
 
-const compilerWorker = new Worker(new URL("./compiler.worker.ts", import.meta.url), {
-  type: "module",
+const compilerWorker = new Worker(new URL('./compiler.worker.ts', import.meta.url), {
+  type: 'module',
 });
 
 function genIframeUrl(importMap: string, compilerCode: string) {
@@ -25,7 +25,7 @@ function genIframeUrl(importMap: string, compilerCode: string) {
 
   return URL.createObjectURL(
     new Blob([htmlStr], {
-      type: "text/html",
+      type: 'text/html',
     }),
   );
 }
@@ -39,17 +39,17 @@ export default function RootPreview() {
   const importMapContent = files[IMPORT_MAP_FILE_NAME].value;
 
   // ============== Compiler ==============
-  const [compiledCode, setCompiledCode] = useState("");
+  const [compiledCode, setCompiledCode] = useState('');
 
   useEffect(() => {
     compilerWorker.postMessage(files);
   }, [files]);
 
   useEffect(() => {
-    compilerWorker.addEventListener("message", (ev: MessageEvent<CompilerMessageEventData>) => {
-      if (ev.data.type === "CODE_COMPILED") {
+    compilerWorker.addEventListener('message', (ev: MessageEvent<CompilerMessageEventData>) => {
+      if (ev.data.type === 'CODE_COMPILED') {
         setCompiledCode(ev.data.data as string);
-      } else if (ev.data.type === "CODE_COMPILE_ERROR") {
+      } else if (ev.data.type === 'CODE_COMPILE_ERROR') {
         console.error(ev.data.data);
       }
     });
@@ -67,20 +67,20 @@ export default function RootPreview() {
   const [errMsg, setErrMsg] = useState<string>();
 
   const handleMessage = (ev: MessageEvent<MessageData>) => {
-    if (ev.data.type === "ERROR") {
+    if (ev.data.type === 'ERROR') {
       setErrMsg(ev.data.message);
     }
   };
 
   useEffect(() => {
-    window.addEventListener("message", handleMessage);
+    window.addEventListener('message', handleMessage);
     return () => {
-      window.removeEventListener("message", handleMessage);
+      window.removeEventListener('message', handleMessage);
     };
   }, []);
 
   useEffect(() => {
-    console.log("iframe render-----", iframeUrl);
+    console.log('iframe render-----', iframeUrl);
     /**
       执行顺序如下：
       生成 iframeUrl, 重置错误信息
@@ -91,16 +91,16 @@ export default function RootPreview() {
   }, [iframeUrl]);
 
   return (
-    <div className='box-border h-full w-full overflow-auto'>
+    <div className="box-border h-full w-full overflow-auto">
       <iframe
-        title='preview'
+        title="preview"
         src={iframeUrl}
-        className={cn("m-0 h-full w-full border-none p-0", {
+        className={cn('m-0 h-full w-full border-none p-0', {
           hidden: !!errMsg,
         })}
       />
 
-      {errMsg && <ErrorAlert className='mx-12 mt-12' errMsg={errMsg} />}
+      {errMsg && <ErrorAlert className="mx-12 mt-12" errMsg={errMsg} />}
     </div>
   );
 }

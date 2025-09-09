@@ -1,13 +1,6 @@
-import { useCallback, useContext } from "react";
-import { Download, MoonIcon, Share2, SunIcon } from "lucide-react";
-import { toast } from "sonner";
-
-import ReactLogo from "@/icons/react-logo";
-import { downloadFiles } from "@/core/util";
-import { PlaygroundContext } from "@/core/context";
-import { useTheme } from "@/hooks/useTheme";
-
-import { Button } from "@/components/ui/button";
+import { Download, MoonIcon, Share2, SunIcon } from 'lucide-react';
+import { useCallback, useContext } from 'react';
+import { toast } from 'sonner';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,42 +11,47 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { PlaygroundContext } from '@/core/context';
+import { downloadFiles } from '@/core/util';
+import { useTheme } from '@/hooks/useTheme';
+import ReactLogo from '@/icons/react-logo';
 
 export default function RootHeader() {
   const { files } = useContext(PlaygroundContext);
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = useCallback(() => {
-    const _theme = ["system", "light"].includes(theme) ? "light" : "dark";
-    setTheme(_theme === "dark" ? "light" : "dark");
+    const _theme = ['system', 'light'].includes(theme) ? 'light' : 'dark';
+    setTheme(_theme === 'dark' ? 'light' : 'dark');
   }, [theme]);
 
   const copyLink = () => {
     // chrome 66 support clipboard.writeText
     navigator.clipboard.writeText(window.location.href);
-    toast.success("Share link copied!", { position: "top-center" });
+    toast.success('Share link copied!', { position: 'top-center' });
   };
 
   return (
-    <header className='flex items-center justify-between border-b p-2'>
-      <div className='flex items-center'>
-        <ReactLogo className='h-8 w-8' style={{ color: "#61DAFB" }} />
-        <span className='ml-2'>React Mini Playground</span>
+    <header className="flex items-center justify-between border-b p-2">
+      <div className="flex items-center">
+        <ReactLogo className="h-8 w-8" style={{ color: '#61DAFB' }} />
+        <span className="ml-2">React Mini Playground</span>
       </div>
-      <div className='flex items-center gap-2'>
+      <div className="flex items-center gap-2">
         {/* Share */}
-        <Button title='Share link' variant='ghost' className='size-8' onClick={copyLink}>
+        <Button title="Share link" variant="ghost" className="size-8" onClick={copyLink}>
           <Share2 />
-          <span className='sr-only'>Share link</span>
+          <span className="sr-only">Share link</span>
         </Button>
 
         {/* Download */}
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button title='Download files' variant='ghost' className='size-8'>
+            <Button title="Download files" variant="ghost" className="size-8">
               <Download />
-              <span className='sr-only'>Download files</span>
+              <span className="sr-only">Download files</span>
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -69,10 +67,10 @@ export default function RootHeader() {
         </AlertDialog>
 
         {/* Theme */}
-        <Button title='Toggle theme' variant='ghost' className='size-8' onClick={toggleTheme}>
-          <SunIcon className='hidden [html.dark_&]:block' />
-          <MoonIcon className='hidden [html.light_&]:block' />
-          <span className='sr-only'>Toggle theme</span>
+        <Button title="Toggle theme" variant="ghost" className="size-8" onClick={toggleTheme}>
+          <SunIcon className="hidden [html.dark_&]:block" />
+          <MoonIcon className="hidden [html.light_&]:block" />
+          <span className="sr-only">Toggle theme</span>
         </Button>
       </div>
     </header>

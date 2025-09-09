@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import { compress, decodeCompress } from "@/core/util";
-
-import { type MultipleFiles, PlaygroundContext } from ".";
-import { fileName2Language } from "../util";
-import { defaultFiles, ENTRY_FILE_NAME } from "../files";
+import { useCallback, useEffect, useState } from 'react';
+import { compress, decodeCompress } from '@/core/util';
+import { defaultFiles, ENTRY_FILE_NAME } from '../files';
+import { fileName2Language } from '../util';
+import { type MultipleFiles, PlaygroundContext } from '.';
 
 interface PlaygroundProviderProps {
   children: React.ReactNode;
@@ -38,7 +37,7 @@ export const PlaygroundProvider = (props: PlaygroundProviderProps) => {
         [name]: {
           name,
           language: fileName2Language(name),
-          value: "",
+          value: '',
         },
       });
     },

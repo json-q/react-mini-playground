@@ -1,9 +1,9 @@
-import { PlaygroundContext } from "@/core/context";
-import { useContext, useEffect, useMemo, useRef } from "react";
-import { debounce } from "lodash-es";
-import FileNameListItem from "./filename-list-item";
-import { Plus } from "lucide-react";
-import { ENTRY_FILE_NAME } from "@/core/files";
+import { debounce } from 'lodash-es';
+import { Plus } from 'lucide-react';
+import { useContext, useEffect, useMemo, useRef } from 'react';
+import { PlaygroundContext } from '@/core/context';
+import { ENTRY_FILE_NAME } from '@/core/files';
+import FileNameListItem from './filename-list-item';
 
 export default function FileNameList() {
   const {
@@ -28,9 +28,9 @@ export default function FileNameList() {
 
   // ============= wheel event =============
   useEffect(() => {
-    window.addEventListener("wheel", handleWheel);
+    window.addEventListener('wheel', handleWheel);
     return () => {
-      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener('wheel', handleWheel);
     };
   }, []);
 
@@ -55,7 +55,7 @@ export default function FileNameList() {
   };
 
   function genNewFileName() {
-    const baseName = "Comp";
+    const baseName = 'Comp';
 
     // 检查是否已经有 Comp.tsx 文件
     if (!fileTabs.includes(`${baseName}.tsx`)) {
@@ -97,11 +97,11 @@ export default function FileNameList() {
 
   return (
     <div
-      role='navigation'
+      role="navigation"
       onMouseLeave={debounce(handleMouseLeave, 300)}
       onMouseEnter={debounce(handleMouseEnter, 300)}
       ref={fileContainerRef}
-      className='scrollbar scrollbar-thumb-blue-500 scrollbar-h-[1px] scrollbar-track-transparent flex w-full flex-none gap-2 overflow-x-auto overflow-y-hidden border-b'
+      className="scrollbar scrollbar-thumb-blue-500 scrollbar-h-[1px] scrollbar-track-transparent flex w-full flex-none gap-2 overflow-x-auto overflow-y-hidden border-b"
     >
       {fileTabs.map((item) => {
         return (
@@ -117,11 +117,11 @@ export default function FileNameList() {
       })}
 
       <button
-        type='button'
-        className='m-0 cursor-pointer border-none align-middle outline-none hover:text-primary/60'
+        type="button"
+        className="m-0 cursor-pointer border-none align-middle outline-none hover:text-primary/60"
         onClick={onAddTab}
       >
-        <Plus className='h-4 w-4' />
+        <Plus className="h-4 w-4" />
       </button>
     </div>
   );

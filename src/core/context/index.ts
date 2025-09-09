@@ -1,6 +1,6 @@
-import { createContext } from "react";
-import type { CodeContainerFileInfo } from "@/components/code-container";
-import { ENTRY_FILE_NAME } from "../files";
+import { createContext } from 'react';
+import type { CodeContainerFileInfo } from '@/components/code-container';
+import { ENTRY_FILE_NAME } from '../files';
 
 // CodeFile Context
 export interface MultipleFiles {
@@ -22,7 +22,7 @@ export const PlaygroundContext = createContext<PlaygroundContextProps>({
 } as PlaygroundContextProps);
 
 // Theme Context
-export type Theme = "dark" | "light" | "system";
+export type Theme = 'dark' | 'light' | 'system';
 
 export type ThemeContextProps = {
   theme: Theme;
@@ -30,5 +30,5 @@ export type ThemeContextProps = {
 };
 
 export const ThemeContext = createContext<ThemeContextProps>({
-  theme: "system",
+  theme: 'system',
 } as ThemeContextProps);

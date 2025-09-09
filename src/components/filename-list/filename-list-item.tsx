@@ -1,7 +1,6 @@
-import { useContext, useRef, useState } from "react";
-import { X } from "lucide-react";
-import { PlaygroundContext } from "@/core/context";
-import { cn } from "@/lib/utils";
+import { X } from 'lucide-react';
+import { useContext, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,9 +10,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
-import { buttonVariants } from "../ui/button";
+} from '@/components/ui/alert-dialog';
+import { PlaygroundContext } from '@/core/context';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '../ui/button';
 
 interface FileNameListItemProps {
   name: string;
@@ -29,7 +29,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
 
   // =============== Modal ===============
   const [open, setOpen] = useState(false);
-  const [delFileName, setDelFileName] = useState("");
+  const [delFileName, setDelFileName] = useState('');
 
   // =============== Editing ===============
   const [isEditing, setIsEditing] = useState(false);
@@ -47,7 +47,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
 
   const onConfirmEdit = () => {
     if (!inputRef.current?.value) {
-      toast.error("Rename filename cannot be empty", { position: "top-center" });
+      toast.error('Rename filename cannot be empty', { position: 'top-center' });
       setIsEditing(false);
       return;
     }
@@ -61,7 +61,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
   };
 
   const onListenerKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       onConfirmEdit();
     }
   };
@@ -75,12 +75,12 @@ export default function FileNameListItem(props: FileNameListItemProps) {
 
   return (
     <div
-      role='button'
+      role="button"
       key={name}
       className={cn(
-        "flex cursor-pointer flex-row items-center whitespace-nowrap border-b-2 border-b-transparent p-2 align-middle transition-colors hover:bg-accent",
+        'flex cursor-pointer flex-row items-center whitespace-nowrap border-b-2 border-b-transparent p-2 align-middle transition-colors hover:bg-accent',
         {
-          "border-primary bg-accent text-primary": selectedFileName === name,
+          'border-primary bg-accent text-primary': selectedFileName === name,
         },
       )}
       onClick={() => onClick?.(name)}
@@ -88,8 +88,8 @@ export default function FileNameListItem(props: FileNameListItemProps) {
     >
       {isEditing ? (
         <input
-          className='w-24 bg-accent text-foreground text-sm outline-none'
-          type='text'
+          className="w-24 bg-accent text-foreground text-sm outline-none"
+          type="text"
           ref={inputRef}
           defaultValue={name}
           onBlur={onConfirmEdit}
@@ -99,8 +99,8 @@ export default function FileNameListItem(props: FileNameListItemProps) {
         <>
           {name}
           {!readonly && (
-            <button type='button' className='cursor-pointer px-1' onClick={onInnerRemove}>
-              <X className='h-3 w-3' />
+            <button type="button" className="cursor-pointer px-1" onClick={onInnerRemove}>
+              <X className="h-3 w-3" />
             </button>
           )}
         </>
@@ -112,7 +112,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
             <AlertDialogTitle>删除提醒</AlertDialogTitle>
             <AlertDialogDescription>
               是否确定删除
-              <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-sesemibosemibold'>
+              <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-sesemibosemibold">
                 {delFileName}
               </code>
               ?
@@ -120,10 +120,7 @@ export default function FileNameListItem(props: FileNameListItemProps) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>取消</AlertDialogCancel>
-            <AlertDialogAction
-              className={buttonVariants({ variant: "destructive" })}
-              onClick={onRemove}
-            >
+            <AlertDialogAction className={buttonVariants({ variant: 'destructive' })} onClick={onRemove}>
               确定
             </AlertDialogAction>
           </AlertDialogFooter>
